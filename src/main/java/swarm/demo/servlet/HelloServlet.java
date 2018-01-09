@@ -15,7 +15,15 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
   
 @WebServlet("/")
 public class HelloServlet extends HttpServlet {
-	private final static String URI_BOOK = "http://erdetbankdag-erdetbankdag.52.178.134.24.nip.io/rest/day";
+	private static String URI_BOOK;
+	
+	public HelloServlet() {
+	    URI_BOOK =
+	        System.getenv("URI_REST_SVC") == null?
+	        		"http://erdetbankdag-erdetbankdag.52.178.134.24.nip.io/rest/day":
+	        		System.getenv("URI_REST_SVC");
+	}
+	
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	ResteasyClient client = new ResteasyClientBuilder().build();
